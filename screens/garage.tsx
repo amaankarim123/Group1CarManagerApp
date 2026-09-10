@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, FlatList, TouchableOpacity, Button, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, FlatList, TouchableOpacity, Button } from 'react-native';
 
 import { styles } from '../styles/styles';
 
@@ -30,9 +30,20 @@ const MOCK_CARS = [
 
 export default function GarageScreen({ route, navigation }: any) {
 
-  const {id, name, description, mileage, nextService} = route.params || {};
-  
-  MOCK_CARS.push({ id, name, description, mileage, nextService });
+  const [cars, setCars] = useState(MOCK_CARS);
+
+  useEffect(() => {
+    const newCar = route.params?.id ? route.params : null;
+
+    if (newCar) {
+      setCars((currentCars) => (
+        currentCars.some((car) => car.id === newCar.id)
+          ? currentCars
+          : [...currentCars, newCar]
+      ));
+      navigation.setParams({ id: undefined });
+    }
+  }, [navigation, route.params]);
 
   const handleCarPress = (car: any) => {
     // We will navigate to a 'CarDetails' screen eventually and pass the car object.
@@ -74,7 +85,7 @@ export default function GarageScreen({ route, navigation }: any) {
       </View>
 
       <FlatList
-        data={MOCK_CARS}
+        data={cars}
         keyExtractor={(item) => item.id}
         renderItem={renderCarItem}
         contentContainerStyle={styles.listContainer}

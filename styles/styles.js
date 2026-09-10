@@ -18,32 +18,11 @@ export const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
-    textAlign: 'center',
-    marginBottom: 5,
-  },
   subtitle: {
     fontSize: 14,
     color: '#666',
     textAlign: 'center',
     marginBottom: 20,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    padding: 12,
-    marginBottom: 15,
-    backgroundColor: '#fafafa',
-    fontSize: 16,
-  },
-  buttonContainer: {
-    marginTop: 10,
-    borderRadius: 8,
-    overflow: 'hidden',
   },
   header: {
     padding: 16,

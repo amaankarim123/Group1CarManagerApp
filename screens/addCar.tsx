@@ -25,8 +25,16 @@ export default function AddCarScreen({ navigation }: any) {
       return;
     }
 
-    if (isNaN(Number(mileage)) || isNaN(Number(nextService))) {
-      Alert.alert('Math Error', 'Mileage and Next Service must be actual numbers, mate.');
+    const mileageValue = Number(mileage);
+    const nextServiceValue = Number(nextService);
+
+    if (
+      !Number.isInteger(mileageValue) ||
+      !Number.isInteger(nextServiceValue) ||
+      mileageValue < 0 ||
+      nextServiceValue < 0
+    ) {
+      Alert.alert('Math Error', 'Mileage and Next Service must be non-negative whole numbers.');
       return;
     }
 
@@ -34,8 +42,8 @@ export default function AddCarScreen({ navigation }: any) {
       id: Date.now().toString(), // Quick and dirty unique ID
       name,
       description,
-      mileage: parseInt(mileage, 10),
-      nextService: parseInt(nextService, 10),
+      mileage: mileageValue,
+      nextService: nextServiceValue,
     };
 
     // TODO: Actually save this to AsyncStorage or a global state manager here
